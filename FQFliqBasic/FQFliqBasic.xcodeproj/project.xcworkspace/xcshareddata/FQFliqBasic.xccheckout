@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>45DED15D-C60E-459D-9506-8AC49CB24222</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FQFliqBasic</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>56371C2F78CAEC06D46D22E77D8AAE014D6A98EE</key>
+		<string>https://github.com/olykos/FQFliqBasic.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FQFliqBasic.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>56371C2F78CAEC06D46D22E77D8AAE014D6A98EE</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/olykos/FQFliqBasic.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>56371C2F78CAEC06D46D22E77D8AAE014D6A98EE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>56371C2F78CAEC06D46D22E77D8AAE014D6A98EE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FQFliqBasic</string>
+		</dict>
+	</array>
+</dict>
+</plist>
