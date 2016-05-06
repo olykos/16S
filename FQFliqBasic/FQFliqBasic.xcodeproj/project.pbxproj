@@ -22,6 +22,7 @@
 		CE7184781A5E11FA009B10F3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7184761A5E11FA009B10F3 /* LaunchScreen.xib */; };
 		CE7184841A5E11FA009B10F3 /* FQFliqBasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7184831A5E11FA009B10F3 /* FQFliqBasicTests.m */; };
 		CE71848F1A603B57009B10F3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE71848E1A603B57009B10F3 /* CoreBluetooth.framework */; };
+		CEA123E81CDD2F6100DBE3B0 /* BeaconsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA123E71CDD2F6100DBE3B0 /* BeaconsViewController.m */; };
 		CEA9CA281A65F064004A295E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA9CA271A65F064004A295E /* AddressBook.framework */; };
 		CEC09BBF1A74320B007ED528 /* AddContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC09BBE1A74320B007ED528 /* AddContactViewController.m */; };
 		CED3F5F21AF976950054C7F2 /* FQPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3F5F11AF976950054C7F2 /* FQPeripheral.m */; };
@@ -62,6 +63,8 @@
 		CE7184831A5E11FA009B10F3 /* FQFliqBasicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FQFliqBasicTests.m; sourceTree = "<group>"; };
 		CE71848E1A603B57009B10F3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		CE7184901A603BC7009B10F3 /* UserValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserValues.h; sourceTree = "<group>"; };
+		CEA123E61CDD2F6100DBE3B0 /* BeaconsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconsViewController.h; sourceTree = "<group>"; };
+		CEA123E71CDD2F6100DBE3B0 /* BeaconsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconsViewController.m; sourceTree = "<group>"; };
 		CEA9CA271A65F064004A295E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		CEC09BBD1A74320B007ED528 /* AddContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContactViewController.h; sourceTree = "<group>"; };
 		CEC09BBE1A74320B007ED528 /* AddContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContactViewController.m; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 				CE7184711A5E11FA009B10F3 /* Main.storyboard */,
 				CEDEB20C1ACC91AA00EC4A63 /* ScanViewController.h */,
 				CEDEB20D1ACC91AA00EC4A63 /* ScanViewController.m */,
+				CEA123E61CDD2F6100DBE3B0 /* BeaconsViewController.h */,
+				CEA123E71CDD2F6100DBE3B0 /* BeaconsViewController.m */,
 				CE71846B1A5E11FA009B10F3 /* CentralViewController.h */,
 				CE71846C1A5E11FA009B10F3 /* CentralViewController.m */,
 				CE71846E1A5E11FA009B10F3 /* PeripheralViewController.h */,
@@ -302,6 +307,7 @@
 				CEDEB20E1ACC91AA00EC4A63 /* ScanViewController.m in Sources */,
 				CED3F5F21AF976950054C7F2 /* FQPeripheral.m in Sources */,
 				CE71846A1A5E11FA009B10F3 /* AppDelegate.m in Sources */,
+				CEA123E81CDD2F6100DBE3B0 /* BeaconsViewController.m in Sources */,
 				CE71846D1A5E11FA009B10F3 /* CentralViewController.m in Sources */,
 				CEC09BBF1A74320B007ED528 /* AddContactViewController.m in Sources */,
 				CE7184671A5E11FA009B10F3 /* main.m in Sources */,

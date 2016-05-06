@@ -97,7 +97,7 @@
 
 -(void)decodeFliq:(NSString *)fliqString
 {
-    NSArray *fliqArray = [fliqString componentsSeparatedByString:@"*"];
+    NSArray *fliqArray = [fliqString componentsSeparatedByString:@":"];
     self.fliqDict = [[NSMutableDictionary alloc] initWithCapacity:7];
     
     NSLog(@"%@", fliqArray);

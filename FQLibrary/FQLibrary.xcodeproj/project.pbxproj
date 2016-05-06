@@ -1,0 +1,264 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CEA123991CD3ED5700DBE3B0 /* FQLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEA123981CD3ED5700DBE3B0 /* FQLibrary.h */; };
+		CEA1239B1CD3ED5700DBE3B0 /* FQLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1239A1CD3ED5700DBE3B0 /* FQLibrary.m */; };
+		CEA123A31CD3F80D00DBE3B0 /* FQPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA123A21CD3F80D00DBE3B0 /* FQPeripheral.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CEA123931CD3ED5700DBE3B0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				CEA123991CD3ED5700DBE3B0 /* FQLibrary.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CEA123951CD3ED5700DBE3B0 /* libFQLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFQLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA123981CD3ED5700DBE3B0 /* FQLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FQLibrary.h; sourceTree = "<group>"; };
+		CEA1239A1CD3ED5700DBE3B0 /* FQLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FQLibrary.m; sourceTree = "<group>"; };
+		CEA123A11CD3F7FF00DBE3B0 /* FQPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQPeripheral.h; sourceTree = "<group>"; };
+		CEA123A21CD3F80D00DBE3B0 /* FQPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQPeripheral.m; sourceTree = "<group>"; };
+		CEA123A41CD3FB2F00DBE3B0 /* UserValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserValues.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CEA123921CD3ED5700DBE3B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CEA1238C1CD3ED5700DBE3B0 = {
+			isa = PBXGroup;
+			children = (
+				CEA123971CD3ED5700DBE3B0 /* FQLibrary */,
+				CEA123961CD3ED5700DBE3B0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CEA123961CD3ED5700DBE3B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CEA123951CD3ED5700DBE3B0 /* libFQLibrary.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEA123971CD3ED5700DBE3B0 /* FQLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				CEA123981CD3ED5700DBE3B0 /* FQLibrary.h */,
+				CEA1239A1CD3ED5700DBE3B0 /* FQLibrary.m */,
+				CEA123A11CD3F7FF00DBE3B0 /* FQPeripheral.h */,
+				CEA123A21CD3F80D00DBE3B0 /* FQPeripheral.m */,
+				CEA123A41CD3FB2F00DBE3B0 /* UserValues.h */,
+			);
+			path = FQLibrary;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CEA123941CD3ED5700DBE3B0 /* FQLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEA1239E1CD3ED5700DBE3B0 /* Build configuration list for PBXNativeTarget "FQLibrary" */;
+			buildPhases = (
+				CEA123911CD3ED5700DBE3B0 /* Sources */,
+				CEA123921CD3ED5700DBE3B0 /* Frameworks */,
+				CEA123931CD3ED5700DBE3B0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FQLibrary;
+			productName = FQLibrary;
+			productReference = CEA123951CD3ED5700DBE3B0 /* libFQLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CEA1238D1CD3ED5700DBE3B0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Orestis Lykouropoulos";
+				TargetAttributes = {
+					CEA123941CD3ED5700DBE3B0 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = CEA123901CD3ED5700DBE3B0 /* Build configuration list for PBXProject "FQLibrary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CEA1238C1CD3ED5700DBE3B0;
+			productRefGroup = CEA123961CD3ED5700DBE3B0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEA123941CD3ED5700DBE3B0 /* FQLibrary */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CEA123911CD3ED5700DBE3B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA123A31CD3F80D00DBE3B0 /* FQPeripheral.m in Sources */,
+				CEA1239B1CD3ED5700DBE3B0 /* FQLibrary.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CEA1239C1CD3ED5700DBE3B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CEA1239D1CD3ED5700DBE3B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CEA1239F1CD3ED5700DBE3B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CEA123A01CD3ED5700DBE3B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CEA123901CD3ED5700DBE3B0 /* Build configuration list for PBXProject "FQLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA1239C1CD3ED5700DBE3B0 /* Debug */,
+				CEA1239D1CD3ED5700DBE3B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA1239E1CD3ED5700DBE3B0 /* Build configuration list for PBXNativeTarget "FQLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA1239F1CD3ED5700DBE3B0 /* Debug */,
+				CEA123A01CD3ED5700DBE3B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CEA1238D1CD3ED5700DBE3B0 /* Project object */;
+}

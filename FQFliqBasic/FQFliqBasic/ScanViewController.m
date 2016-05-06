@@ -255,14 +255,14 @@
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    NSLog(@"did update value");
+//    NSLog(@"did update value");
     if (error) {
         NSLog(@"Error updating value for characteristic %@. Error: %@", characteristic, [error localizedDescription]);
         return;
     }
     
     NSString *stringFromData = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-    NSLog(@"Received: %@", stringFromData);
+//    NSLog(@"Received: %@", stringFromData);
     
     //check if this is the end of the message
     if ([stringFromData isEqualToString:@"EOM"]) {
@@ -447,7 +447,7 @@
         }
         
         NSString *stringFromData = [[NSString alloc] initWithData:chunk encoding:NSUTF8StringEncoding];
-        NSLog(@"Sent: %@", stringFromData);
+//        NSLog(@"Sent: %@", stringFromData);
         
         // It did send, so update our index
         self.fliqDataIndex += amountToSend;
