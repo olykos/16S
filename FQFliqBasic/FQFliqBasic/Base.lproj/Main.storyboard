@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Central-->
@@ -494,8 +495,23 @@
                     <view key="view" contentMode="scaleToFill" id="l70-XT-zOo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-hn-0kE">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="HUz-hn-0kE" secondAttribute="trailing" constant="-20" id="2p6-0a-PK7"/>
+                            <constraint firstItem="HUz-hn-0kE" firstAttribute="leading" secondItem="l70-XT-zOo" secondAttribute="leadingMargin" constant="-20" id="Q5a-gr-6Av"/>
+                            <constraint firstItem="HUz-hn-0kE" firstAttribute="top" secondItem="l70-XT-zOo" secondAttribute="topMargin" id="RUr-PI-Gp7"/>
+                            <constraint firstItem="Rdk-oh-c9W" firstAttribute="top" secondItem="HUz-hn-0kE" secondAttribute="bottom" id="nuz-6t-oI3"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="HUz-hn-0kE" id="gWP-2m-w4H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a9F-fL-hco" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

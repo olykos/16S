@@ -41,11 +41,10 @@
     NSLog(@"Stopping beacon scan...");
     [self.centralManager stopScan];
     
-    NSMutableURLRequest *request = nil;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openmerchantaccount.com/img2/NMFimg.jpg"]];
     
-    request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://postimg.org/image/73wm45ptt/"]];
-    
-//    [self.webView loadRequest:request];
+    NSLog(@"Loading request");
+    [self.webView loadRequest:request];
 //    self.activityIndicator.hidden = YES;
     
     

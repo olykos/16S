@@ -13,6 +13,7 @@
 @interface BeaconsViewController : UIViewController
 
 @property (strong,nonatomic) NSMutableDictionary *rssiDict;
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) IBOutlet UIImageView *displayImage;
 
 //------------------------------ CoreBluetooth properties ----------------------------------------
