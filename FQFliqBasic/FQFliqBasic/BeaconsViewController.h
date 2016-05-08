@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-
+#import <Firebase/Firebase.h>
 
 @interface BeaconsViewController : UIViewController
 
@@ -30,5 +30,7 @@
 @property (strong, nonatomic) CBPeripheralManager *peripheralManager;
 
 @property (strong, nonatomic) NSMutableArray *fliqBeaconsArray;
+
+@property (strong, nonatomic) Firebase *firebaseRef;
 
 @end

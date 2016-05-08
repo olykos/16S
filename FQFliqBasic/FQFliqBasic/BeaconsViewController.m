@@ -8,6 +8,7 @@
 
 #import "BeaconsViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import <Firebase/Firebase.h>
 #import "UserValues.h"
 
 @interface BeaconsViewController () <CBCentralManagerDelegate>
@@ -23,8 +24,9 @@
     //Do any additional setup after loading the view.
     self.rssiDict = [[NSMutableDictionary alloc] init];
     [self.activityIndicator startAnimating];
-    // Do any additional setup after loading the view.
     
+    // Create a reference to a Firebase database URL
+    self.firebaseRef = [[Firebase alloc] initWithUrl:@"https://fliq.firebaseio.com/1CD0"];
     
     [self.fliqBeaconsArray removeAllObjects];
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:nil];
@@ -42,7 +44,16 @@
     NSLog(@"Stopping beacon scan...");
     [self.centralManager stopScan];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openmerchantaccount.com/img2/NMFimg.jpg"]];
+    
+    __block NSMutableURLRequest *request;
+    NSLog(@"GOT HERE");
+    [self.firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"Retrieved data from Firebase: %@", snapshot.value);
+        request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:snapshot.value]];
+    }];
+    
+    NSLog(@"GOT HERE 2");
+
     self.webView.scalesPageToFit = YES;
     
     NSLog(@"Loading request");
