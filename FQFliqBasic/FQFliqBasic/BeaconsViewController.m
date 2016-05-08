@@ -12,6 +12,7 @@
 
 @interface BeaconsViewController () <CBCentralManagerDelegate>
 
+- (IBAction)backBtnPressed:(id)sender;
 
 @end
 
@@ -21,7 +22,7 @@
     [super viewDidLoad];
     //Do any additional setup after loading the view.
     self.rssiDict = [[NSMutableDictionary alloc] init];
-//    [self.activityIndicator startAnimating];
+    [self.activityIndicator startAnimating];
     // Do any additional setup after loading the view.
     
     
@@ -29,7 +30,7 @@
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:nil];
     self.fliqBeaconsArray = [[NSMutableArray alloc] init];
     
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,10 +43,11 @@
     [self.centralManager stopScan];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openmerchantaccount.com/img2/NMFimg.jpg"]];
+    self.webView.scalesPageToFit = YES;
     
     NSLog(@"Loading request");
     [self.webView loadRequest:request];
-//    self.activityIndicator.hidden = YES;
+    self.activityIndicator.hidden = YES;
     
     
 }
@@ -217,4 +219,7 @@
 }
 
 
+- (IBAction)backBtnPressed:(id)sender {
+    [self performSegueWithIdentifier:@"segueToScanVC" sender:self];
+}
 @end

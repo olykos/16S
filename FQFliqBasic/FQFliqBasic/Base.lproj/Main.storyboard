@@ -497,20 +497,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-hn-0kE">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mQa-qE-anI">
+                                <rect key="frame" x="150" y="208" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6SV-tw-d0F">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="XNk-vb-dA9"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Beacons" id="KZv-gn-yPg">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="9wZ-Az-Fqq">
+                                            <connections>
+                                                <action selector="backBtnPressed:" destination="urm-9S-71a" id="SVG-OX-7n1"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="mQa-qE-anI" firstAttribute="top" secondItem="Cxp-Tw-bj5" secondAttribute="bottom" constant="188" id="26j-Sb-1Ea"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HUz-hn-0kE" secondAttribute="trailing" constant="-20" id="2p6-0a-PK7"/>
                             <constraint firstItem="HUz-hn-0kE" firstAttribute="leading" secondItem="l70-XT-zOo" secondAttribute="leadingMargin" constant="-20" id="Q5a-gr-6Av"/>
-                            <constraint firstItem="HUz-hn-0kE" firstAttribute="top" secondItem="l70-XT-zOo" secondAttribute="topMargin" id="RUr-PI-Gp7"/>
+                            <constraint firstItem="mQa-qE-anI" firstAttribute="leading" secondItem="l70-XT-zOo" secondAttribute="leadingMargin" constant="130" id="VOa-yr-VGg"/>
+                            <constraint firstItem="HUz-hn-0kE" firstAttribute="top" secondItem="6SV-tw-d0F" secondAttribute="bottom" id="Vj8-MQ-LTW"/>
+                            <constraint firstItem="6SV-tw-d0F" firstAttribute="top" secondItem="l70-XT-zOo" secondAttribute="topMargin" id="bWX-jp-kWr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mQa-qE-anI" secondAttribute="trailing" constant="130" id="cjx-2D-7Ch"/>
+                            <constraint firstItem="6SV-tw-d0F" firstAttribute="leading" secondItem="l70-XT-zOo" secondAttribute="leadingMargin" constant="-20" id="gSq-SR-M1A"/>
+                            <constraint firstItem="Rdk-oh-c9W" firstAttribute="top" secondItem="mQa-qE-anI" secondAttribute="bottom" constant="252" id="hv1-ty-eoO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6SV-tw-d0F" secondAttribute="trailing" constant="-20" id="jJv-a3-f7L"/>
                             <constraint firstItem="Rdk-oh-c9W" firstAttribute="top" secondItem="HUz-hn-0kE" secondAttribute="bottom" id="nuz-6t-oI3"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="mQa-qE-anI" id="47U-BW-jDv"/>
                         <outlet property="webView" destination="HUz-hn-0kE" id="gWP-2m-w4H"/>
+                        <segue destination="RhZ-iH-WvA" kind="show" identifier="segueToScanVC" id="pLx-U8-FkJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a9F-fL-hco" userLabel="First Responder" sceneMemberID="firstResponder"/>
