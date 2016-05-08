@@ -43,30 +43,24 @@
 - (void)displayWebView {
     NSLog(@"Stopping beacon scan...");
     [self.centralManager stopScan];
-<<<<<<< HEAD
     
-    
+    // URLWithString used to be "https://openmerchantaccount.com/img2/NMFimg.jpg"
     __block NSMutableURLRequest *request;
-    NSLog(@"GOT HERE");
+    
     [self.firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSLog(@"Retrieved data from Firebase: %@", snapshot.value);
         request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:snapshot.value]];
     }];
     
-    NSLog(@"GOT HERE 2");
-
-=======
     [self sortPeripheralArray];
     NSLog(@"%@", self.fliqBeaconsArray);
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openmerchantaccount.com/img2/NMFimg.jpg"]];
->>>>>>> 15807f80a36888134e96b598544dbc00ec5b2aee
+    
+    
     self.webView.scalesPageToFit = YES;
     
     NSLog(@"Loading request");
     [self.webView loadRequest:request];
     self.activityIndicator.hidden = YES;
-    
-    
 }
 
 //Sorts the fliq beacons array by rssi
