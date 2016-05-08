@@ -144,7 +144,7 @@
     
     
     if(![self.fliqBeaconsArray containsObject:peripheral])
-        if ([peripheral.name isEqualToString:@"AprilBeacon_1CD0"] || [peripheral.name isEqualToString:@"AprilBeacon_2813"]){
+        if ([peripheral.name hasPrefix:@"AprilBeacon_"]){
             [self.fliqBeaconsArray addObject:peripheral];
             [self.rssiDict setObject:RSSI forKey:peripheral.identifier];
         }
