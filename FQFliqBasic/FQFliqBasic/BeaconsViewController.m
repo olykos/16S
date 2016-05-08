@@ -41,7 +41,8 @@
 - (void)displayWebView {
     NSLog(@"Stopping beacon scan...");
     [self.centralManager stopScan];
-    
+    [self sortPeripheralArray];
+    NSLog(@"%@", self.fliqBeaconsArray);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openmerchantaccount.com/img2/NMFimg.jpg"]];
     self.webView.scalesPageToFit = YES;
     
@@ -50,6 +51,15 @@
     self.activityIndicator.hidden = YES;
     
     
+}
+
+//Sorts the fliq beacons array by rssi
+-(void)sortPeripheralArray{
+    [self.fliqBeaconsArray sortedArrayUsingComparator:^NSComparisonResult(CBPeripheral *peripheral1, CBPeripheral *peripheral2){
+        NSNumber *rssi1 = [self.rssiDict valueForKey:[peripheral1.identifier UUIDString]];
+        NSNumber *rssi2 = [self.rssiDict valueForKey:[peripheral2.identifier UUIDString]];
+        return [rssi1 compare:rssi2];
+    }];
 }
 
 /*
