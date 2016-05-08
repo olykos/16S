@@ -22,6 +22,7 @@
 //actions
 - (IBAction)nextButtonPressed:(UIButton *)sender;
 - (IBAction)scanButtonPressed:(UIButton *)sender;
+- (IBAction)buttonPressed:(UIButton *)sender;
 
 //------------------------------- TableView properties ---------------------------------------------
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -524,6 +525,10 @@
     }
 }
 
+- (IBAction)buttonPressed:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"Beacons View Controller" sender:self];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.destinationViewController isKindOfClass:[PeripheralViewController class]]) {
@@ -537,6 +542,9 @@
     }
     
 }
+
+
+
 
 #pragma mark - Table view methods
 
