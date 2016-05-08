@@ -42,40 +42,8 @@
     [self.centralManager stopScan];
     
     NSMutableURLRequest *request = nil;
-    if ([self.fliqBeaconsArray count] == 0) {
-        request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.fliqapp.com/DEFHome"]];
-        NSLog(@"show both");
-        
-    } else if ([self.fliqBeaconsArray count] == 1) {
-        CBPeripheral *p = self.fliqBeaconsArray[0];
-        if ([p.name isEqualToString:@"AprilBeacon_1CD0"]){
-            request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.tiny.cc/fliqe"]];
-            NSLog(@"1: show east");
-        } else {
-            request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.tiny.cc/fliqw"]];
-            NSLog(@"1: show west");
-            
-        }
-    } else { //count == 2 by design
-        CBPeripheral *p1 = self.fliqBeaconsArray[0];
-        CBPeripheral *p2 = self.fliqBeaconsArray[1];
-        CBPeripheral *p; //closest peripheral
-        if ([self.rssiDict objectForKey:p1.identifier] >= [self.rssiDict objectForKey:p2.identifier]) {
-            p = self.fliqBeaconsArray[0];
-        } else {
-            p = self.fliqBeaconsArray[1];
-        }
-        
-        if ([p.name isEqualToString:@"AprilBeacon_1CD0"]){
-            request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://tiny.cc/fliqe"]];
-            NSLog(@"2: show east");
-            
-        } else {
-            request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://tiny.cc/fliqw"]];
-            NSLog(@"2: show west");
-            
-        }
-    }
+    
+    request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://postimg.org/image/73wm45ptt/"]];
     
 //    [self.webView loadRequest:request];
 //    self.activityIndicator.hidden = YES;
