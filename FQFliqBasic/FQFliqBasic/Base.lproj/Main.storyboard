@@ -462,6 +462,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRK-Dn-ump">
+                                <rect key="frame" x="13" y="20" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="RhZ-iH-WvA" eventType="touchUpInside" id="QQw-na-6RP"/>
+                                    <segue destination="urm-9S-71a" kind="show" identifier="Beacons View Controller" id="WRJ-Ya-tlN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -474,6 +482,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sdt-Fg-R0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-438" y="0.0"/>
+        </scene>
+        <!--Beacons View Controller-->
+        <scene sceneID="3ua-Mp-wNy">
+            <objects>
+                <viewController id="urm-9S-71a" customClass="BeaconsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cxp-Tw-bj5"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rdk-oh-c9W"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="l70-XT-zOo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a9F-fL-hco" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-91" y="640"/>
         </scene>
     </scenes>
     <resources>
