@@ -50,15 +50,18 @@
     [self.firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSLog(@"Retrieved data from Firebase: %@", snapshot.value);
         request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:snapshot.value]];
+        
     }];
     
     [self sortPeripheralArray];
     NSLog(@"%@", self.fliqBeaconsArray);
+    NSLog(@"%@, value", request.URL);
     
     
     self.webView.scalesPageToFit = YES;
     
-    NSLog(@"Loading request");
+    NSLog(@"Loading request %@", request);
+//    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openmerchantaccount.com/img2/NMFimg.jpg"]];
     [self.webView loadRequest:request];
     self.activityIndicator.hidden = YES;
 }
