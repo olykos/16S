@@ -45,25 +45,26 @@
     [self.centralManager stopScan];
     
     // URLWithString used to be "https://openmerchantaccount.com/img2/NMFimg.jpg"
-    __block NSMutableURLRequest *request;
     
     [self.firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        NSLog(@"Retrieved data from Firebase: %@", snapshot.value);
-        request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:snapshot.value]];
+        if (snapshot.value == [NSNull null]) {
+            NSLog(@"was null");
+            return;
+        } else {
+            NSLog(@"Retrieved data from Firebase – key: %@    %@", snapshot.key, snapshot.value);
+        }
+
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:snapshot.value]];
+        [self sortPeripheralArray];
+        NSLog(@"%@", self.fliqBeaconsArray);
         
+        
+        self.webView.scalesPageToFit = YES;
+        
+        NSLog(@"Loading request");
+        [self.webView loadRequest:request];
+        self.activityIndicator.hidden = YES;
     }];
-    
-    [self sortPeripheralArray];
-    NSLog(@"%@", self.fliqBeaconsArray);
-    NSLog(@"%@, value", request.URL);
-    
-    
-    self.webView.scalesPageToFit = YES;
-    
-    NSLog(@"Loading request %@", request);
-//    request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://openmerchantaccount.com/img2/NMFimg.jpg"]];
-    [self.webView loadRequest:request];
-    self.activityIndicator.hidden = YES;
 }
 
 //Sorts the fliq beacons array by rssi
