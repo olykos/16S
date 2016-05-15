@@ -25,8 +25,7 @@
     self.rssiDict = [[NSMutableDictionary alloc] init];
     [self.activityIndicator startAnimating];
     
-    // Create a reference to a Firebase database URL
-    self.firebaseRef = [[Firebase alloc] initWithUrl:@"https://fliq.firebaseio.com/1CD0"];
+
     
     [self.fliqBeaconsArray removeAllObjects];
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:nil];
@@ -44,9 +43,27 @@
     NSLog(@"Stopping beacon scan...");
     [self.centralManager stopScan];
     
+    [self sortPeripheralArray];
+    NSLog(@"%@", self.fliqBeaconsArray);
+    
+    // Parse beacons array to get ID of closest beacon
+    CBPeripheral *closestBeacon = [self.fliqBeaconsArray objectAtIndex:0];
+    NSString *beacon_ID = closestBeacon.name;
+    
+    if ([beacon_ID hasPrefix:@"AprilBeacon_"])
+        beacon_ID = [beacon_ID substringFromIndex:[@"AprilBeacon_" length]];
+    
+    NSString *beaconURL = @"https://fliq.firebaseio.com/";
+    beaconURL = [beaconURL stringByAppendingString:beacon_ID];
+
+    NSLog(@"BEACON URL: %@", beaconURL);
+    
+    // Create a reference to a Firebase database URL
+    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beaconURL];
+    
     // URLWithString used to be "https://openmerchantaccount.com/img2/NMFimg.jpg"
     
-    [self.firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    [firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
        
         if (snapshot.value == [NSNull null]) {
             NSLog(@"was null");
@@ -56,9 +73,6 @@
         }
 
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:snapshot.value]];
-        [self sortPeripheralArray];
-        NSLog(@"%@", self.fliqBeaconsArray);
-        
         
         self.webView.scalesPageToFit = YES;
         
