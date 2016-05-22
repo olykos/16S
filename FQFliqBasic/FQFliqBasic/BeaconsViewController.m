@@ -10,7 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Firebase/Firebase.h>
 #import "UserValues.h"
-
+@import CoreLocation;
 
 @interface BeaconsViewController () <CBCentralManagerDelegate, CLLocationManagerDelegate>
 
@@ -26,15 +26,23 @@
     //CL setup
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
+   
+    CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
     
-    NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
+    if (authStatus == kCLAuthorizationStatusRestricted || authStatus == kCLAuthorizationStatusDenied) {
+        NSLog(@"This app is not authorized to use Location Services. Aborting Beacon mode.");
+        return;
+    }
     
-    CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
-                                                                      identifier:@"ranged region"];
+    if (authStatus == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestWhenInUseAuthorization];
+        
+    }
     
-    [self.locationManager startRangingBeaconsInRegion:beaconRegion];
-    
-    
+    if ([CLLocationManager isRangingAvailable] == NO) {
+        NSLog(@"This device does not support Bluetooth ranging. Aborting Beacon mode.");
+        return;
+    }
     
     //Do any additional setup after loading the view.
 //    self.rssiDict = [[NSMutableDictionary alloc] init];
@@ -58,25 +66,22 @@
     NSLog(@"Stopping beacon scan...");
     [self.centralManager stopScan];
     
+    if ([self.fliqBeaconsArray count] == 0) {
+        NSLog(@"No beacons were found during scan");
+        return;
+    }
+    
     [self sortPeripheralArray];
     NSLog(@"%@", self.fliqBeaconsArray);
     
-    // Parse beacons array to get ID of closest beacon
+    // Parse beacons array to get UUID of closest beacon
     CBPeripheral *closestBeacon = [self.fliqBeaconsArray objectAtIndex:0];
-    NSString *beacon_ID = closestBeacon.name;
-    
-    if ([beacon_ID hasPrefix:@"AprilBeacon_"])
-        beacon_ID = [beacon_ID substringFromIndex:[@"AprilBeacon_" length]];
-    
-    NSString *beaconURL = @"https://fliq.firebaseio.com/";
-    beaconURL = [beaconURL stringByAppendingString:beacon_ID];
+    NSString *beacon_URL = [@"https://fliq.firebaseio.com/" stringByAppendingString:closestBeacon.identifier.UUIDString];
 
-    NSLog(@"BEACON URL: %@", beaconURL);
+    NSLog(@"Beacon URL: %@", beacon_URL);
     
     // Create a reference to a Firebase database URL
-    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beaconURL];
-    
-    // URLWithString used to be "https://openmerchantaccount.com/img2/NMFimg.jpg"
+    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beacon_URL];
     
     [firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
        
