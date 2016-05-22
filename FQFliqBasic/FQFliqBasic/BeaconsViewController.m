@@ -209,14 +209,14 @@
     //        }
     
     
-    if(![self.fliqBeaconsArray containsObject:peripheral])
+    /*if(![self.fliqBeaconsArray containsObject:peripheral])
         
         if ([peripheral.name hasPrefix:@"AprilBeacon_"]){
             NSLog(@"PERIPHERAL ID: %@", peripheral.identifier.UUIDString);
             [self.fliqBeaconsArray addObject:peripheral];
             [self.rssiDict setObject:RSSI forKey:peripheral.identifier];
         }
-    NSLog(@"LIST OF PERIPHERALS FIRST ROUND: %@", self.fliqBeaconsArray);
+    NSLog(@"LIST OF PERIPHERALS FIRST ROUND: %@", self.fliqBeaconsArray);*/
 }
 
 //connection unsuccesful
@@ -281,6 +281,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray<CLBeacon *> *)beacons inRegion:(CLBeaconRegion *)region
 {
+    self.fliqBeaconsArray = beacons;
     NSLog(@"BEACONS ARRAY: %@", beacons);
 }
 
