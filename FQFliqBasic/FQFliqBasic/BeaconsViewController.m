@@ -26,14 +26,14 @@
     //Do any additional setup after loading the view.
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     
-    if (authStatus == kCLAuthorizationStatusRestricted || authStatus == kCLAuthorizationStatusDenied) {
+    if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
         NSLog(@"This app is not authorized to use Location Services. Aborting Beacon mode.");
         return;
     }
     
-    if (authStatus == kCLAuthorizationStatusNotDetermined) {
+    if (status == kCLAuthorizationStatusNotDetermined) {
         [self.locationManager requestWhenInUseAuthorization];
     }
     
@@ -50,6 +50,19 @@
     self.fliqBeaconsArray = [[NSMutableArray alloc] init];
     
     [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    NSLog(@"Callback");
+    if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        NSLog(@"Authorized");
+
+        // your code here
+        
+    } else if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
+        NSLog(@"Denied");
+    }
 }
 
 - (void)didReceiveMemoryWarning {
