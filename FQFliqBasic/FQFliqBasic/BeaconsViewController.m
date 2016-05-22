@@ -11,8 +11,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Firebase/Firebase.h>
 #import "UserValues.h"
+@import CoreLocation;
 
-@interface BeaconsViewController () <CBCentralManagerDelegate>
+@interface BeaconsViewController () <CBCentralManagerDelegate, CLLocationManagerDelegate>
 
 - (IBAction)backBtnPressed:(id)sender;
 
@@ -22,17 +23,59 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //Do any additional setup after loading the view.
-    self.rssiDict = [[NSMutableDictionary alloc] init];
-    [self.activityIndicator startAnimating];
     
+    //CL setup
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
 
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     
-    [self.fliqBeaconsArray removeAllObjects];
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:nil];
-    self.fliqBeaconsArray = [[NSMutableArray alloc] init];
+    if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
+        NSLog(@"This app is not authorized to use Location Services. Aborting Beacon mode.");
+        return;
+    }
     
-    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
+    if (status == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestWhenInUseAuthorization];
+        
+    }
+    
+    if ([CLLocationManager isRangingAvailable] == NO) {
+        NSLog(@"This device does not support Bluetooth ranging. Aborting Beacon mode.");
+        return;
+    }
+    
+    //Do any additional setup after loading the view.
+//    self.rssiDict = [[NSMutableDictionary alloc] init];
+//    [self.activityIndicator startAnimating];
+//    
+//
+//    
+//    [self.fliqBeaconsArray removeAllObjects];
+//    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:nil];
+//    self.fliqBeaconsArray = [[NSMutableArray alloc] init];
+//    
+//    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    NSLog(@"Callback");
+    if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        NSLog(@"Authorized");
+
+
+        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
+        CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
+                                                                          identifier:@"ranged region"];
+        
+        [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+
+        
+        
+    } else if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
+        NSLog(@"Denied");
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,12 +109,11 @@
     NSString *beaconURL = @"https://fliq.firebaseio.com/";
     beaconURL = [beaconURL stringByAppendingString:beacon_ID];
 
-    NSLog(@"BEACON URL: %@", beaconURL);
+
+    NSLog(@"Beacon URL: %@", beacon_URL);
     
     // Create a reference to a Firebase database URL
-    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beaconURL];
-    
-    // URLWithString used to be "https://openmerchantaccount.com/img2/NMFimg.jpg"
+    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beacon_URL];
     
     [firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
        
@@ -160,7 +202,9 @@
     
     
     if(![self.fliqBeaconsArray containsObject:peripheral])
+        
         if ([peripheral.name hasPrefix:@"AprilBeacon_"]){
+            NSLog(@"PERIPHERAL ID: %@", peripheral.identifier.UUIDString);
             [self.fliqBeaconsArray addObject:peripheral];
             [self.rssiDict setObject:RSSI forKey:peripheral.identifier];
         }
@@ -225,6 +269,11 @@
     
     self.discoveredPeripheral = nil;
     
+}
+
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray<CLBeacon *> *)beacons inRegion:(CLBeaconRegion *)region
+{
+    NSLog(@"BEACONS ARRAY: %@", beacons);
 }
 
 
