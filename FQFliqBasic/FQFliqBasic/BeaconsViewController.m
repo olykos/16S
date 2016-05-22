@@ -44,6 +44,16 @@
         return;
     }
     
+    if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
+        
+        CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
+                                                                          identifier:@"ranged region"];
+        
+        [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+
+    }
+    
     //Do any additional setup after loading the view.
 //    self.rssiDict = [[NSMutableDictionary alloc] init];
 //    [self.activityIndicator startAnimating];
@@ -62,16 +72,14 @@
     NSLog(@"Callback");
     if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
         NSLog(@"Authorized");
-
-
+        
         NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
+        
         CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
                                                                           identifier:@"ranged region"];
         
         [self.locationManager startRangingBeaconsInRegion:beaconRegion];
 
-        
-        
     } else if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
         NSLog(@"Denied");
     }
