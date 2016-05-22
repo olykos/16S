@@ -8,6 +8,7 @@
 
 #import "BeaconsViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import <CoreLocation/CoreLocation.h>
 #import <Firebase/Firebase.h>
 #import "UserValues.h"
 @import CoreLocation;
@@ -94,17 +95,28 @@
     NSLog(@"Stopping beacon scan...");
     [self.centralManager stopScan];
     
-    if ([self.fliqBeaconsArray count] == 0) {
-        NSLog(@"No beacons were found during scan");
-        return;
-    }
-    
-    [self sortPeripheralArray];
+    [self sortBeaconArray];
     NSLog(@"%@", self.fliqBeaconsArray);
     
-    // Parse beacons array to get UUID of closest beacon
-    CBPeripheral *closestBeacon = [self.fliqBeaconsArray objectAtIndex:0];
-    NSString *beacon_URL = [@"https://fliq.firebaseio.com/" stringByAppendingString:closestBeacon.identifier.UUIDString];
+    /*Parse beacons array to get ID of closest beacon
+    //CBPeripheral *closestBeacon = [self.fliqBeaconsArray objectAtIndex:0];
+    NSString *beacon_ID = closestBeacon.name;*/
+    
+    //Get closest beacon with nonnegative accuracy
+    NSEnumerator *e = [self.fliqBeaconsArray objectEnumerator];
+    CLBeacon *closestBeacon;
+    while(closestBeacon = [e nextObject]){
+        if(closestBeacon.accuracy > 0){
+            return;
+        }
+    }
+    /*
+    if ([beacon_ID hasPrefix:@"AprilBeacon_"])
+        beacon_ID = [beacon_ID substringFromIndex:[@"AprilBeacon_" length]];
+    
+    NSString *beaconURL = @"https://fliq.firebaseio.com/";
+    beaconURL = [beaconURL stringByAppendingString:beacon_ID];
+
 
     NSLog(@"Beacon URL: %@", beacon_URL);
     
@@ -127,15 +139,13 @@
         NSLog(@"Loading request");
         [self.webView loadRequest:request];
         self.activityIndicator.hidden = YES;
-    }];
+    }];*/
 }
 
-//Sorts the fliq beacons array by rssi
--(void)sortPeripheralArray{
-    [self.fliqBeaconsArray sortedArrayUsingComparator:^NSComparisonResult(CBPeripheral *peripheral1, CBPeripheral *peripheral2){
-        NSNumber *rssi1 = [self.rssiDict valueForKey:[peripheral1.identifier UUIDString]];
-        NSNumber *rssi2 = [self.rssiDict valueForKey:[peripheral2.identifier UUIDString]];
-        return [rssi1 compare:rssi2];
+//Sorts the fliq beacons array by accuracy
+-(void)sortBeaconArray{
+    [self.fliqBeaconsArray sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *beacon1, CLBeacon*beacon2){
+        return [[NSNumber numberWithDouble:beacon1.accuracy] compare:[NSNumber numberWithDouble:beacon2.accuracy]];
     }];
 }
 
