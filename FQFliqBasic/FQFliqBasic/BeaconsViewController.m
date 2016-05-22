@@ -11,7 +11,8 @@
 #import <Firebase/Firebase.h>
 #import "UserValues.h"
 
-@interface BeaconsViewController () <CBCentralManagerDelegate>
+
+@interface BeaconsViewController () <CBCentralManagerDelegate, CLLocationManagerDelegate>
 
 - (IBAction)backBtnPressed:(id)sender;
 
@@ -21,17 +22,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //CL setup
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
+    
+    CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
+                                                                      identifier:@"ranged region"];
+    
+    [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+    
+    
+    
     //Do any additional setup after loading the view.
-    self.rssiDict = [[NSMutableDictionary alloc] init];
-    [self.activityIndicator startAnimating];
-    
-
-    
-    [self.fliqBeaconsArray removeAllObjects];
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:nil];
-    self.fliqBeaconsArray = [[NSMutableArray alloc] init];
-    
-    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
+//    self.rssiDict = [[NSMutableDictionary alloc] init];
+//    [self.activityIndicator startAnimating];
+//    
+//
+//    
+//    [self.fliqBeaconsArray removeAllObjects];
+//    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:nil];
+//    self.fliqBeaconsArray = [[NSMutableArray alloc] init];
+//    
+//    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(displayWebView) userInfo:nil repeats:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -219,6 +234,11 @@
     
     self.discoveredPeripheral = nil;
     
+}
+
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray<CLBeacon *> *)beacons inRegion:(CLBeaconRegion *)region
+{
+    NSLog(@"BEACONS ARRAY: %@", beacons);
 }
 
 

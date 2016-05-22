@@ -10,6 +10,8 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Firebase/Firebase.h>
 
+@import CoreLocation;
+
 @interface BeaconsViewController : UIViewController
 
 @property (strong,nonatomic) NSMutableDictionary *rssiDict;
@@ -30,5 +32,8 @@
 @property (strong, nonatomic) CBPeripheralManager *peripheralManager;
 
 @property (strong, nonatomic) NSMutableArray *fliqBeaconsArray;
+
+//CL
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
