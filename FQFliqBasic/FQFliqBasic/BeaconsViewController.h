@@ -31,6 +31,4 @@
 
 @property (strong, nonatomic) NSMutableArray *fliqBeaconsArray;
 
-@property (strong, nonatomic) Firebase *firebaseRef;
-
 @end
