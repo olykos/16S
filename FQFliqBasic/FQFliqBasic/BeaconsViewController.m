@@ -148,9 +148,9 @@
  }
  */
 
-
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray<CLBeacon *> *)beacons inRegion:(CLBeaconRegion *)region
 {
+    self.fliqBeaconsArray = beacons;
     NSLog(@"BEACONS ARRAY: %@", beacons);
 }
 
