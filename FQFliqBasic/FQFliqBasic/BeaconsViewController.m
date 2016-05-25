@@ -45,8 +45,8 @@
     }
     
     if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
-        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
-        
+//      NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
+        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
         
         CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
                                                                           identifier:@"ranged region"];
@@ -59,19 +59,19 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     
-    NSLog(@"Callback");
+    NSLog(@"Authorization status change callback");
     if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
-        NSLog(@"Authorized");
+        NSLog(@"Location services authorized");
         
-        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
-        
+//        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
+        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
         CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
                                                                           identifier:@"ranged region"];
         
         [self.locationManager startRangingBeaconsInRegion:beaconRegion];
 
     } else if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
-        NSLog(@"Denied");
+        NSLog(@"Location services authorization denied");
     }
 }
 
@@ -81,46 +81,36 @@
 }
 
 - (void)displayWebView {
-    NSLog(@"Stopping beacon scan...");
-    [self.centralManager stopScan];
-    
-    [self sortBeaconArray];
-    NSLog(@"%@", self.fliqBeaconsArray);
-    
-    /*Parse beacons array to get ID of closest beacon
-    //CBPeripheral *closestBeacon = [self.fliqBeaconsArray objectAtIndex:0];
-    NSString *beacon_ID = closestBeacon.name;*/
     
     //Get closest beacon with nonnegative accuracy
+    [self sortBeaconArray];
     NSEnumerator *e = [self.fliqBeaconsArray objectEnumerator];
-    CLBeacon *closestBeacon;
-    while(closestBeacon = [e nextObject]){
-        if(closestBeacon.accuracy > 0){
+    
+    CLBeacon *closestBeacon = [e nextObject];
+    while (closestBeacon.accuracy < 0) {
+        if ((closestBeacon = [e nextObject]) == nil) {
+            NSLog(@"Unable to find beacon with nonnegative accuracy value – exiting displayWebView.");
             return;
         }
     }
-    /*
-    if ([beacon_ID hasPrefix:@"AprilBeacon_"])
-        beacon_ID = [beacon_ID substringFromIndex:[@"AprilBeacon_" length]];
     
-    NSString *beaconURL = @"https://fliq.firebaseio.com/";
-    beaconURL = [beaconURL stringByAppendingString:beacon_ID];
-
-
-    NSLog(@"Beacon URL: %@", beacon_URL);
+    // Construct firebase request URL using closest beacon's major/minor values
+    NSString *beaconURL = [NSString stringWithFormat:@"https://fliq.firebaseio.com/%@/%@", closestBeacon.major.stringValue, closestBeacon.minor.stringValue];
+    
+    NSLog(@"Beacon URL: %@", beaconURL);
     
     // Create a reference to a Firebase database URL
-    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beacon_URL];
+    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beaconURL];
     
     [firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-       
+        
         if (snapshot.value == [NSNull null]) {
-            NSLog(@"was null");
+            NSLog(@"Snapshot value was null – exiting displayWebView.");
             return;
         } else {
-            NSLog(@"Retrieved data from Firebase – key: %@    %@", snapshot.key, snapshot.value);
+            NSLog(@"Retrieved data from Firebase – key: %@; value: %@", snapshot.key, snapshot.value);
         }
-
+        
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:snapshot.value]];
         
         self.webView.scalesPageToFit = YES;
@@ -128,13 +118,6 @@
         NSLog(@"Loading request");
         [self.webView loadRequest:request];
         self.activityIndicator.hidden = YES;
-    }];*/
-}
-
-//Sorts the fliq beacons array by accuracy
--(void)sortBeaconArray{
-    [self.fliqBeaconsArray sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *beacon1, CLBeacon*beacon2){
-        return [[NSNumber numberWithDouble:beacon1.accuracy] compare:[NSNumber numberWithDouble:beacon2.accuracy]];
     }];
 }
 
@@ -152,10 +135,8 @@
 {
     self.fliqBeaconsArray = beacons;
     NSLog(@"BEACONS ARRAY: %@", beacons);
+    [self displayWebView];
 }
-
-
-
 
 
 - (IBAction)backBtnPressed:(id)sender {
