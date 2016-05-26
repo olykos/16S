@@ -26,6 +26,7 @@
     //CL setup
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
+    self.beaconURL = [[NSMutableString alloc] init];
 
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     
@@ -46,8 +47,7 @@
     
     if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
 //      NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
-        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
-        
+        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"0F32B5C3-7824-475C-A568-35CC58AB3508"];
         CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
                                                                           identifier:@"ranged region"];
         
@@ -64,7 +64,7 @@
         NSLog(@"Location services authorized");
         
 //        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"];
-        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
+        NSUUID *fliqBeaconUUID = [[NSUUID alloc] initWithUUIDString:@"0F32B5C3-7824-475C-A568-35CC58AB3508"];
         CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:fliqBeaconUUID
                                                                           identifier:@"ranged region"];
         
@@ -95,12 +95,20 @@
     }
     
     // Construct firebase request URL using closest beacon's major/minor values
-    NSString *beaconURL = [NSString stringWithFormat:@"https://fliq.firebaseio.com/%@/%@", closestBeacon.major.stringValue, closestBeacon.minor.stringValue];
+    NSString *new_beaconURL = [NSString stringWithFormat:@"https://fliq.firebaseio.com/%@/%@", closestBeacon.major.stringValue, closestBeacon.minor.stringValue];
     
-    NSLog(@"Beacon URL: %@", beaconURL);
+    
+    // if the beaconURL is the same as last time, no need to reload the request
+    if ([self.beaconURL isEqualToString:new_beaconURL]) {
+        return;
+    }
+    
+    // otherwise, reassign the global beacon URL and load the request
+    [self.beaconURL setString:new_beaconURL];
+    NSLog(@"New beacon URL: %@", self.beaconURL);
     
     // Create a reference to a Firebase database URL
-    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:beaconURL];
+    Firebase *firebaseRef = [[Firebase alloc] initWithUrl:self.beaconURL];
     
     [firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         
@@ -138,6 +146,12 @@
     [self displayWebView];
 }
 
+//Sorts the fliq beacons array by accuracy
+- (void)sortBeaconArray{
+    [self.fliqBeaconsArray sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *beacon1, CLBeacon*beacon2){
+        return [[NSNumber numberWithDouble:beacon1.accuracy] compare:[NSNumber numberWithDouble:beacon2.accuracy]];
+    }];
+}
 
 - (IBAction)backBtnPressed:(id)sender {
     [self performSegueWithIdentifier:@"segueToScanVC" sender:self];

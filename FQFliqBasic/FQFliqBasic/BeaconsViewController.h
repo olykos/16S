@@ -30,8 +30,8 @@
 
 //Peripheral
 @property (strong, nonatomic) CBPeripheralManager *peripheralManager;
-
 @property (strong, nonatomic) NSArray<CLBeacon *> *fliqBeaconsArray;
+@property (strong, nonatomic) NSMutableString *beaconURL;
 
 //CL
 @property (strong, nonatomic) CLLocationManager *locationManager;
